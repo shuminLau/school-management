@@ -1,0 +1,180 @@
+{
+  "info": {
+    "name": "学校管理系统 API",
+    "_postman_id": "school-mgmt-v1",
+    "description": "学生管理 + 成绩管理完整接口测试集",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3000", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "🎓 学生管理",
+      "item": [
+        {
+          "name": "获取所有学生",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/students"
+          }
+        },
+        {
+          "name": "按班级筛选学生",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/students?class_name=高一(1)班",
+              "host": ["{{baseUrl}}"],
+              "path": ["api","students"],
+              "query": [{ "key": "class_name", "value": "高一(1)班" }]
+            }
+          }
+        },
+        {
+          "name": "获取学生详情",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/students/1"
+          }
+        },
+        {
+          "name": "新增学生",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/students",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"赵六\",\n  \"gender\": \"female\",\n  \"class_name\": \"高一(3)班\"\n}"
+            }
+          }
+        },
+        {
+          "name": "更新学生（全量 PUT）",
+          "request": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/students/1",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"张三（已更新）\",\n  \"gender\": \"male\",\n  \"class_name\": \"高一(1)班\"\n}"
+            }
+          }
+        },
+        {
+          "name": "更新学生（局部 PATCH）",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/students/1",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"class_name\": \"高二(1)班\"\n}"
+            }
+          }
+        },
+        {
+          "name": "删除学生",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/students/3"
+          }
+        }
+      ]
+    },
+    {
+      "name": "📊 成绩管理",
+      "item": [
+        {
+          "name": "获取所有成绩",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/scores"
+          }
+        },
+        {
+          "name": "按学生筛选成绩",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/scores?student_id=1",
+              "host": ["{{baseUrl}}"],
+              "path": ["api","scores"],
+              "query": [{ "key": "student_id", "value": "1" }]
+            }
+          }
+        },
+        {
+          "name": "按科目筛选成绩",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/api/scores?subject=数学",
+              "host": ["{{baseUrl}}"],
+              "path": ["api","scores"],
+              "query": [{ "key": "subject", "value": "数学" }]
+            }
+          }
+        },
+        {
+          "name": "获取成绩详情",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/scores/1"
+          }
+        },
+        {
+          "name": "获取学生成绩统计",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/scores/student/1/summary"
+          }
+        },
+        {
+          "name": "新增成绩",
+          "request": {
+            "method": "POST",
+            "url": "{{baseUrl}}/api/scores",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"student_id\": 1,\n  \"subject\": \"物理\",\n  \"score\": 89,\n  \"exam_date\": \"2024-06-01\"\n}"
+            }
+          }
+        },
+        {
+          "name": "更新成绩（全量 PUT）",
+          "request": {
+            "method": "PUT",
+            "url": "{{baseUrl}}/api/scores/1",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"student_id\": 1,\n  \"subject\": \"数学\",\n  \"score\": 99,\n  \"exam_date\": \"2024-03-01\"\n}"
+            }
+          }
+        },
+        {
+          "name": "更新成绩（局部 PATCH）",
+          "request": {
+            "method": "PATCH",
+            "url": "{{baseUrl}}/api/scores/1",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"score\": 110\n}"
+            }
+          }
+        },
+        {
+          "name": "删除成绩",
+          "request": {
+            "method": "DELETE",
+            "url": "{{baseUrl}}/api/scores/5"
+          }
+        }
+      ]
+    }
+  ]
+}
